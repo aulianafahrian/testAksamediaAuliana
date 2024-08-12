@@ -13,7 +13,7 @@
     <div class="bg-white p-8 rounded rounded-md shadow-md max-w-md w-full mx-auto">
         <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-                <img class="mx-auto h-10 w-auto" src="https://aksamedia.co.id/assets/aksamedia-logo-2.webp"
+                <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                     alt="aksamedia logo">
                 <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your
                     account</h2>
@@ -82,8 +82,10 @@
                 localStorage.setItem("isAuthenticated", "true");
                 localStorage.setItem("username", usernameInput);
 
+                // Alert berhasil login
+                alert("Login berhasil");
                 // Redirect ke halaman utama
-                window.location.href = "/pages/dashboard.html";
+                window.location.href = "testAksamediaAuliana/pages/dashboard.html";
             } else {
                 alert("Username atau password salah");
             }
@@ -94,7 +96,7 @@
             const isAuthenticated = localStorage.getItem("isAuthenticated");
 
             if (isAuthenticated === "true") {
-                window.location.href = "/pages/dashboard.html"; // Jika sudah login, arahkan ke halaman utama
+                window.location.href = "testAksamediaAuliana/pages/dashboard.html"; // Jika sudah login, arahkan ke halaman utama
             }
         });
 
