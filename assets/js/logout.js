@@ -27,7 +27,7 @@ function logout() {
 
     // Hapus database IndexedDB dan alihkan pengguna setelah selesai
     deleteDatabase(() => {
-        window.location.href = "/index.html";
+        window.location.href = "../index.html";
     });
 }
 
