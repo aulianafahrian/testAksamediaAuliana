@@ -37,3 +37,25 @@
         /* Light gray text color */
     }
 }
+
+@media (max-width: 768px) {
+    #pagination {
+        font-size: 0.875rem;
+        /* Adjust font size for smaller screens */
+    }
+
+    #pagination button {
+        padding: 0.5rem 1rem;
+    }
+}
+
+@media (min-width: 769px) {
+    #pagination {
+        font-size: 1rem;
+        /* Default font size */
+    }
+
+    #pagination button {
+        padding: 0.75rem 1.5rem;
+    }
+}

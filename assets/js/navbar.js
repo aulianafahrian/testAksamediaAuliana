@@ -15,11 +15,12 @@ function toggleDropdown() {
 document.getElementById("dropdownButton")?.addEventListener("click", toggleDropdown);
 
 // Logout function
-document.getElementById("logoutButton")?.addEventListener("click", function () {
-    localStorage.removeItem("isAuthenticated");
-    localStorage.removeItem("username");
-    window.location.href = "/index.html";
-});
+// document.getElementById("logoutButton")?.addEventListener("click", function () {
+//     localStorage.removeItem("isAuthenticated");
+//     localStorage.removeItem("username");
+//     localStorage.removeItem("currentPage");
+//     window.location.href = "/index.html";
+// });
 
 // Close dropdown if clicked outside
 window.addEventListener("click", function (event) {
