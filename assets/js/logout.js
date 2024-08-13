@@ -19,17 +19,17 @@ function deleteDatabase(callback) {
     };
 }
 
-// Fungsi untuk logout
-function logout() {
-    // Hapus data pengguna dari localStorage
+// Logout function
+document.getElementById("logoutButton")?.addEventListener("click", function () {
+    // Remove authentication details from localStorage
+    localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("username");
     localStorage.removeItem("currentPage");
 
-    // Hapus database IndexedDB dan alihkan pengguna setelah selesai
-    deleteDatabase(() => {
-        window.location.href = "../index.html";
-    });
-}
+    // Redirect to login page
+    window.location.href = "/index.html";
+});
+
 
 // Tambahkan event listener pada tombol logout jika ada
 document.getElementById("logoutButton")?.addEventListener("click", logout);

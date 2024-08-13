@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("loginButton").addEventListener("click", login);
 
     // Cek apakah pengguna sudah login
-    // const isAuthenticated = localStorage.getItem("isAuthenticated");
-    // if (isAuthenticated === "true") {
-    //     window.location.href = "./pages/dashboard.html"; // Jika sudah login, arahkan ke halaman utama
-    // }
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    if (isAuthenticated === "true") {
+        window.location.href = "./pages/dashboard.html"; // Jika sudah login, arahkan ke halaman utama
+    }
 });
