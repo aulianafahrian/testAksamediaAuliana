@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 
 <body class="h-full bg-gray-100 min-h-screen">
@@ -83,21 +83,13 @@
                         <th class="px-6 py-3"></th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                    <!-- Contoh data produk -->
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">Produk A</td>
-                        <td class="px-6 py-4 whitespace-nowrap">Rp100.000</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right">
-                            <button onclick="showEditProductForm(1)" class="text-indigo-600 dark:text-indigo-400 hover:underline">Edit</button>
-                            <button onclick="deleteProduct(1)" class="text-red-600 dark:text-red-400 hover:underline">Hapus</button>
-                        </td>
-                    </tr>
+                <tbody id="productList" class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                    <!-- Data produk akan dimuat di sini -->
                 </tbody>
             </table>
         </div>
-        
     </main>
+
 
     <script type="module" src="/assets/js/app.js"></script>
     <script type="module" src="/assets/js/navbar.js"></script>
