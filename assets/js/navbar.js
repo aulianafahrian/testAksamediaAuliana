@@ -1,7 +1,9 @@
 // Toggle mobile menu
 function toggleMobileMenu() {
     const mobileMenu = document.getElementById("mobile-menu");
-    mobileMenu.classList.toggle("hidden");
+    if (mobileMenu) {
+        mobileMenu.classList.toggle("hidden");
+    }
 }
 
 document.getElementById("mobile-menu-button")?.addEventListener("click", toggleMobileMenu);
@@ -9,16 +11,21 @@ document.getElementById("mobile-menu-button")?.addEventListener("click", toggleM
 // Toggle dropdown menu
 function toggleDropdown() {
     const dropdownMenu = document.getElementById("dropdownMenu");
-    dropdownMenu.classList.toggle("hidden");
+    if (dropdownMenu) {
+        dropdownMenu.classList.toggle("hidden");
+    }
 }
 
 document.getElementById("dropdownButton")?.addEventListener("click", toggleDropdown);
 
 // Logout function
 // document.getElementById("logoutButton")?.addEventListener("click", function () {
+//     // Remove authentication details from localStorage
 //     localStorage.removeItem("isAuthenticated");
 //     localStorage.removeItem("username");
 //     localStorage.removeItem("currentPage");
+
+//     // Redirect to login page
 //     window.location.href = "/index.html";
 // });
 

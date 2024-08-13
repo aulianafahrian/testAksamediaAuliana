@@ -7,6 +7,8 @@
     <title>Login</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body class="h-full bg-gray-100 min-h-screen flex items-center justify-center">
@@ -47,7 +49,7 @@
                     </div>
 
                     <div>
-                        <button type="button" onclick="login()"
+                        <button id="loginButton" type="button" onclick="login()" 
                             class="flex w-full justify-center rounded-md bg-indigo-600 p-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
                             in</button>
                     </div>
@@ -56,51 +58,7 @@
         </div>
     </div>
 
-    <script>
-        const showpw = document.getElementById('showpw');
-        const password = document.getElementById('password');
-
-        showpw.addEventListener('click', () => {
-            if (password.type === 'password') {
-                password.type = 'text';
-            } else {
-                password.type = 'password';
-            }
-        });
-    </script>
-    <script>
-        function login() {
-            const usernameInput = document.getElementById("username").value;
-            const passwordInput = document.getElementById("password").value;
-
-            // Contoh sederhana untuk validasi username dan password
-            const validUsername = "aufa";
-            const validPassword = "123";
-
-            if (usernameInput === validUsername && passwordInput === validPassword) {
-                // Simpan status autentikasi ke localStorage
-                localStorage.setItem("isAuthenticated", "true");
-                localStorage.setItem("username", usernameInput);
-
-                // Alert berhasil login
-                alert("Login berhasil");
-                // Redirect ke halaman utama
-                window.location.href = "./pages/dashboard.html";
-            } else {
-                alert("Username atau password salah");
-            }
-        }
-
-        // Cek apakah pengguna sudah login
-        // document.addEventListener("DOMContentLoaded", function () {
-        //     const isAuthenticated = localStorage.getItem("isAuthenticated");
-
-        //     if (isAuthenticated === "true") {
-        //         window.location.href = "/pages/dashboard.html"; // Jika sudah login, arahkan ke halaman utama
-        //     }
-        // });
-
-    </script>
+    <script type="module" src="/assets/js/login.js"></script>
 </body>
 
 </html>
