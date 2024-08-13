@@ -18,16 +18,6 @@ function toggleDropdown() {
 
 document.getElementById("dropdownButton")?.addEventListener("click", toggleDropdown);
 
-// Logout function
-// document.getElementById("logoutButton")?.addEventListener("click", function () {
-//     // Remove authentication details from localStorage
-//     localStorage.removeItem("isAuthenticated");
-//     localStorage.removeItem("username");
-//     localStorage.removeItem("currentPage");
-
-//     // Redirect to login page
-//     window.location.href = "/index.html";
-// });
 
 // Close dropdown if clicked outside
 window.addEventListener("click", function (event) {
