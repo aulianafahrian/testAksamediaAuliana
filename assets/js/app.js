@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const usernameInput = document.getElementById("username");
     const searchInput = document.getElementById("search-input");
 
-    // Set profile name and input field if they exist
     if (profileName) {
         profileName.textContent = username ? username : "Nama Pengguna";
     }
@@ -13,14 +12,15 @@ document.addEventListener("DOMContentLoaded", function () {
         usernameInput.value = username ? username : "";
     }
 
-    // Initialize IndexedDB
     const dbName = "productDB";
     const storeName = "products";
     let db;
-    let currentPage = 1;
+    let currentPage = localStorage.getItem("currentPage") ? parseInt(localStorage.getItem("currentPage")) : 1;
     const itemsPerPage = 5;
+    let searchTerm = localStorage.getItem("searchTerm") || '';
 
-    // Initialize IndexedDB
+    searchInput.value = searchTerm; // Set the search input value based on the saved searchTerm
+
     const request = indexedDB.open(dbName, 1);
 
     request.onerror = function (event) {
@@ -29,21 +29,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     request.onsuccess = function (event) {
         db = event.target.result;
-        loadProducts(currentPage);
+        loadProducts(currentPage, searchTerm);
     };
 
     request.onupgradeneeded = function (event) {
         const db = event.target.result;
         const objectStore = db.createObjectStore(storeName, { keyPath: "id", autoIncrement: true });
-
         objectStore.createIndex("name", "name", { unique: false });
         objectStore.createIndex("price", "price", { unique: false });
-
         console.log("Database setup complete");
     };
 
-    // Load products from IndexedDB and display them
     function loadProducts(page, searchTerm = '') {
+        localStorage.setItem("currentPage", page); // Save current page to localStorage
+        localStorage.setItem("searchTerm", searchTerm); // Save search term to localStorage
+
         const transaction = db.transaction([storeName], "readonly");
         const objectStore = transaction.objectStore(storeName);
         const productList = document.getElementById("productList");
@@ -82,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     index++;
                     cursor.continue();
                 } else {
-                    // Render pagination controls
                     pagination.innerHTML = '';
                     if (totalPages > 1) {
                         const prevButton = document.createElement('button');
@@ -130,12 +129,10 @@ document.addEventListener("DOMContentLoaded", function () {
         };
     }
 
-    // Handle search input change
     searchInput.addEventListener("input", function () {
         loadProducts(currentPage, searchInput.value);
     });
 
-    // Show form to add new product
     window.showAddProductForm = function () {
         const name = prompt("Masukkan nama produk:");
         const price = prompt("Masukkan harga produk:");
@@ -147,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
             objectStore.add(newProduct);
 
             transaction.oncomplete = function () {
-                loadProducts(currentPage, searchInput.value); // Reload products with the current search term
+                loadProducts(currentPage, searchInput.value);
                 alert("Produk berhasil ditambahkan!");
             };
 
@@ -159,7 +156,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // Show form to edit existing product
     window.showEditProductForm = function (id) {
         const transaction = db.transaction([storeName], "readonly");
         const objectStore = transaction.objectStore(storeName);
@@ -179,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 updateObjectStore.put(product);
 
                 updateTransaction.oncomplete = function () {
-                    loadProducts(currentPage, searchInput.value); // Reload products with the current search term
+                    loadProducts(currentPage, searchInput.value);
                     alert("Produk berhasil diperbarui!");
                 };
 
@@ -196,7 +192,6 @@ document.addEventListener("DOMContentLoaded", function () {
         };
     };
 
-    // Delete a product
     window.deleteProduct = function (id) {
         if (confirm("Apakah Anda yakin ingin menghapus produk ini?")) {
             const transaction = db.transaction([storeName], "readwrite");
@@ -204,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
             objectStore.delete(id);
 
             transaction.oncomplete = function () {
-                loadProducts(currentPage, searchInput.value); // Reload products with the current search term
+                loadProducts(currentPage, searchInput.value);
                 alert("Produk berhasil dihapus!");
             };
 
