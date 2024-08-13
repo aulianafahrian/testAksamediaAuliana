@@ -53,13 +53,13 @@
                             <button id="dropdownButton"
                                 class="relative flex items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                                 aria-expanded="false" aria-haspopup="true">
-                                <img class="h-8 w-8 rounded-full" src="/images/profile.jpg" alt="">
+                                <img class="h-8 w-8 rounded-full" src="/assets/images/profile.jpg" alt="">
                             </button>
                         </div>
                         <div id="dropdownMenu"
                             class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
                             role="menu" aria-orientation="vertical" aria-labelledby="dropdownButton" tabindex="-1">
-                            <a href="/profile.html" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                            <a href="profile.html" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
                                 tabindex="-1" id="user-menu-item-0">Your Profile</a>
                             <a href="#" id="logoutButton" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
                                 tabindex="-1">Sign out</a>
@@ -72,7 +72,7 @@
         <!-- Mobile menu, show/hide based on menu state. -->
         <div class="sm:hidden hidden" id="mobile-menu">
             <div class="space-y-1 px-2 pb-3 pt-2">
-                <a href="/dashboard.html" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
+                <a href="dashboard.html" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
                     aria-current="page">Dashboard</a>
                 <a href="#"
                     class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Team</a>
@@ -112,54 +112,8 @@
     </main>
 
     <script src="/assets/js/navbar.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const username = localStorage.getItem("username");
-            const profileName = document.getElementById("navbarProfileName");
-            const profileInfoName = document.getElementById("profileInfoName");
-            const usernameInput = document.getElementById("username");
-
-            // Set profile names and input field if they exist
-            const displayName = username ? username : "Nama Pengguna";
-
-            if (profileName) {
-                profileName.textContent = displayName;
-            }
-
-            if (profileInfoName) {
-                profileInfoName.textContent = displayName;
-            }
-
-            if (usernameInput) {
-                usernameInput.value = displayName;
-            }
-
-            // Handle form submission
-            const form = document.getElementById("editProfileForm");
-            if (form) {
-                form.addEventListener("submit", function (event) {
-                    event.preventDefault();
-                    const newUsername = usernameInput.value.trim();
-
-                    if (newUsername) {
-                        localStorage.setItem("username", newUsername);
-                        const updatedDisplayName = newUsername;
-                        if (profileName) {
-                            profileName.textContent = updatedDisplayName;
-                        }
-                        if (profileInfoName) {
-                            profileInfoName.textContent = updatedDisplayName;
-                        }
-                        // Optionally, display a success message or notification here
-                        alert("Profile updated successfully!");
-                    } else {
-                        // Handle the case where the input is empty
-                        alert("Username cannot be empty!");
-                    }
-                });
-            }
-        });
-    </script>
+    <script src="/assets/js/profile.js"></script>
+    
 </body>
 
 </html>
