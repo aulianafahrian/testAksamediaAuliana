@@ -21,29 +21,36 @@ document.addEventListener("DOMContentLoaded", function () {
     const itemsPerPage = 5;
 
     // Initialize IndexedDB
-    const request = indexedDB.open(dbName, 1);
+    function initDB() {
+        const request = indexedDB.open(dbName, 1);
 
-    request.onerror = function (event) {
-        console.error("Database error: ", event.target.errorCode);
-    };
+        request.onerror = function (event) {
+            console.error("Database error: ", event.target.errorCode);
+        };
 
-    request.onsuccess = function (event) {
-        db = event.target.result;
-        loadProducts(currentPage);
-    };
+        request.onsuccess = function (event) {
+            db = event.target.result;
+            loadProducts(currentPage); // Load products after database initialization
+        };
 
-    request.onupgradeneeded = function (event) {
-        const db = event.target.result;
-        const objectStore = db.createObjectStore(storeName, { keyPath: "id", autoIncrement: true });
+        request.onupgradeneeded = function (event) {
+            const db = event.target.result;
+            const objectStore = db.createObjectStore(storeName, { keyPath: "id", autoIncrement: true });
 
-        objectStore.createIndex("name", "name", { unique: false });
-        objectStore.createIndex("price", "price", { unique: false });
+            objectStore.createIndex("name", "name", { unique: false });
+            objectStore.createIndex("price", "price", { unique: false });
 
-        console.log("Database setup complete");
-    };
+            console.log("Database setup complete");
+
+            // Add sample data if database is newly created
+            addSampleData(db);
+        };
+    }
 
     // Load products from IndexedDB and display them
     function loadProducts(page, searchTerm = '') {
+        if (!db) return; // Ensure db is initialized
+
         const transaction = db.transaction([storeName], "readonly");
         const objectStore = transaction.objectStore(storeName);
         const productList = document.getElementById("productList");
@@ -215,83 +222,5 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     // Initialize the database and add sample data if necessary
-    function initDB() {
-        const request = indexedDB.open(dbName, 1);
-
-        request.onupgradeneeded = function (event) {
-            const db = event.target.result;
-
-            // Create an object store for products
-            const objectStore = db.createObjectStore(storeName, { keyPath: "id", autoIncrement: true });
-
-            // Define the data fields in each product
-            objectStore.createIndex("name", "name", { unique: false });
-            objectStore.createIndex("price", "price", { unique: false });
-        };
-
-        request.onsuccess = function (event) {
-            db = event.target.result;
-            console.log("IndexedDB initialized");
-
-            // Check if data already exists, if not, add sample data
-            const transaction = db.transaction([storeName], "readonly");
-            const objectStore = transaction.objectStore(storeName);
-            const countRequest = objectStore.count();
-
-            countRequest.onsuccess = function () {
-                if (countRequest.result === 0) {
-                    addSampleData(db);
-                } else {
-                    console.log("Sample data already exists");
-                }
-            };
-        };
-
-        request.onerror = function (event) {
-            console.error("IndexedDB error:", event.target.errorCode);
-        };
-    }
-
-    // Add sample data to the database
-    function addSampleData(db) {
-        const transaction = db.transaction([storeName], "readwrite");
-        const objectStore = transaction.objectStore(storeName);
-
-        const sampleData = [
-            { "name": "Tent Camping 2-Person", "price": 150000 },
-            { "name": "Portable Camping Stove", "price": 50000 },
-            { "name": "Sleeping Bag - 3 Season", "price": 120000 },
-            { "name": "Backpacking Backpack - 40L", "price": 200000 },
-            { "name": "Outdoor Hiking Boots", "price": 250000 },
-            { "name": "Waterproof Hiking Jacket", "price": 180000 },
-            { "name": "Compact Binoculars", "price": 80000 },
-            { "name": "Portable Solar Charger", "price": 70000 },
-            { "name": "Camping Lantern LED", "price": 60000 },
-            { "name": "Outdoor First Aid Kit", "price": 40000 },
-            { "name": "Multi-Tool Survival Kit", "price": 90000 },
-            { "name": "Insulated Water Bottle - 1L", "price": 55000 },
-            { "name": "Fishing Rod and Reel Combo", "price": 150000 },
-            { "name": "Outdoor Hammock with Straps", "price": 130000 },
-            { "name": "Campfire Cooking Set", "price": 110000 },
-            { "name": "Portable Camping Chair", "price": 65000 },
-            { "name": "Emergency Survival Blanket", "price": 25000 },
-            { "name": "Outdoor GPS Device", "price": 220000 },
-            { "name": "Binoculars with Night Vision", "price": 300000 },
-            { "name": "Camping Table and Chairs Set", "price": 170000 }
-        ];
-
-        sampleData.forEach(product => {
-            objectStore.add(product);
-        });
-
-        transaction.oncomplete = function () {
-            console.log("Sample data added successfully");
-        };
-
-        transaction.onerror = function (event) {
-            console.error("Transaction error:", event.target.errorCode);
-        };
-    }
-
     initDB(); // Call initDB on page load
 });
