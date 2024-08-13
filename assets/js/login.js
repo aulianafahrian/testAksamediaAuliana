@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Alert berhasil login
             alert("Login berhasil");
             // Redirect ke halaman utama
-            window.location.href = "./pages/dashboard.html";
+            window.location.href = "../pages/dashboard.html";
         } else {
             alert("Username atau password salah");
         }
@@ -42,6 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Cek apakah pengguna sudah login
     const isAuthenticated = localStorage.getItem("isAuthenticated");
     if (isAuthenticated === "true") {
-        window.location.href = "./pages/dashboard.html"; // Jika sudah login, arahkan ke halaman utama
+        window.location.href = "../pages/dashboard.html"; // Jika sudah login, arahkan ke halaman utama
     }
 });
